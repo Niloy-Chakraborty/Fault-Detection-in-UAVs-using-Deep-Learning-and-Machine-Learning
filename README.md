@@ -1,4 +1,4 @@
-## Fault Detection in UAVs using Deep Learning and Machine Learning
+## Fault Detection in UAVs using Machine Learning and Deep Learning
 
 We propose a Fault Detection and Classification techniques using a Deep Learning and Machine Learning based architectures to detect the UAV maloperation in Accelerometer and Gyroscope sensor.
 
@@ -8,7 +8,7 @@ Unmanned Aerial Vehicles (UAVs) are playing inescapable roles in many facetsof e
 ### Workflow
 <kbd><img src="https://github.com/Niloy-Chakraborty/Fault-Detection-in-UAVs-using-Deep-Learning-and-Machine-Learning/blob/main/ML_DL/misc_images/WorkFlow.png" width="850" height="450"></kbd>
 
-The whole research has been divided into Two Parts, and the final demonstration:
+The whole research has been divided into Three Parts (including the final demonstration):
 #### 1. Part A: [Data Collection](https://github.com/Niloy-Chakraborty/Fault-Detection-in-UAVs-using-Deep-Learning-and-Machine-Learning/tree/main/parrotMinidroneWaypointFollower)
 #### 2. Part B: [Building ML and DL Models and Trainings](https://github.com/Niloy-Chakraborty/Fault-Detection-in-UAVs-using-Deep-Learning-and-Machine-Learning/tree/main/ML_DL)
 #### 3. Part C: [Demonstration](https://github.com/Niloy-Chakraborty/Fault-Detection-in-UAVs-using-Deep-Learning-and-Machine-Learning/tree/main/Demonstration)

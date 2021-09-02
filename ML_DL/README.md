@@ -4,7 +4,7 @@
 
 ### Contents
 1. **Acc_Models:** The trained CNN-LSTM model. 
-   `All the other models can be found in the Google Drive`
+   `All the other models and files can be found in the Google Drive` [LINK](https://drive.google.com/drive/folders/17LU4izLzlkPiMW9A1Au3PF5JLZlSj4ji?usp=sharing)
 2. **Acc_Test_Scripts:** Contains the test script for Accelerometer.
 3. **Acc_Training_Scripts:** Contains all the model training scripts (ML + DL) for Accelerometer.
 4. **Gyr_Models:** Contains the trained models for Gyroscope (Random forest model not included for size constraint).

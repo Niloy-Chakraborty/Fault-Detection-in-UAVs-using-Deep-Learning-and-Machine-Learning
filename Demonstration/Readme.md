@@ -8,19 +8,19 @@ A deployment system for UAV acceleration and gyroscope fault detection.
 
 <a name="using"></a>
 # To Run
-    
+1. Download the Gyr Data, Acc Data and RF Model (for Gyroscope) from [HERE](https://drive.google.com/drive/folders/15zxtT9X9mXi4XtUm6CU1fUBeEE_8bzYi?usp=sharing), and put in the same directory.
 
-1.  Open command line cmd at the root of the repository.
+2.  Open command line cmd at the root of the repository.
 
-2.  Run the command   
+3.  Run the command   
 
     `pip install -r requirements.txt` 
 
-3. Run the command 
+4. Run the command 
 
     `flask run`
 
-4. Open the link on your preffered browser: `http://127.0.0.1:5000/`
+5. Open the link on your preffered browser: `http://127.0.0.1:5000/`
 
 NOTE:  In order to make path, variables or any related change, please change the `config.yaml` file. 
 
@@ -33,5 +33,5 @@ NOTE:  In order to make path, variables or any related change, please change the
 ## Python Version
 The whole project is developed with python version `Python 3.7.7` and pip version `pip 19.2.3`.
 ## Contact
-In case of error, feel free to contact over Linkedin at [Niloy](mailto: chakrabortyniloy2018@gmail.com).
+In case of error, feel free to contact over email at [Niloy](mailto: chakrabortyniloy2018@gmail.com).
 

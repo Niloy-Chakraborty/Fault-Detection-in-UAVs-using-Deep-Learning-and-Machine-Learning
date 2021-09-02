@@ -1,5 +1,4 @@
 # FDD-in-UAV-using-Deep-Learning
------------------------------------------------------------------------------------------
 
 ## Fault Detection in UAVs using Deep Learning and Machine Learning
 

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html  lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+
+    <title>Niloy: Fault Detection </title>
+
+    <!-- Bootstraps Java Scipts Links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+    <!-- JQuery links  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+    <!--High CHART LIVE  -->
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+    <!--Gauge  -->
+    <script type="text/javascript" src="http://pubnub.github.io/eon/lib/eon.js"></script>
+
+    <link rel="shortcut icon" type="image/ico" href="Images/favicon.ico">
+
+
+</head>
+
+<body>
+
+    <div class="jumbotron">
+        <h1 class="text-center text-black">Master Thesis</h1>
+        <h1 class="text-center text-black">Niloy Chakraborty, Institute of Automation and software systems</h1>
+        <h1 class="text-center text-black">Error Detection and Diagnosis of Unmanned Aerial Vehicle using ML and DL</h1>
+    </div>
+    <br>
+    <br>
+
+    <style>
+        form {
+            margin: auto;
+            width: 35%;
+        }
+        .result {
+            margin: auto;
+            width: 35%;
+            border: 2px solid #ccc;
+        }
+        #logo { 
+        position:fixed; 
+        top:0; 
+        left:0; 
+        }
+    </style>
+
+<style>
+    input[type=text], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    input[type=submit] {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+    
+
+    </style>
+
+    <!-- Disable Submit Button -->
+    <script>
+        $(":submit").closest("form").submit(function(){
+        $(':submit').attr('disabled', 'disabled');
+    });
+    </script>
+
+
+    <form action="{{ url_for('main') }}" method="POST">
+            <legend>Select Fault Type</legend>
+            <legend>Type in box below and Press Submit !!</legend>
+            <legend><span class="w3-tag w3-teal">All/Noise/Stuck At/Offset/Package Drop</span></legend>
+            <input type="text" name="selectedfault">
+            <input type="submit">
+    </form>
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-5 jumbotron p-2 mx-1">
+                <h2 class="sensor1"> Sensor : </h2>
+                
+
+            </div>
+
+            <br>
+            <br>
+
+            <div class="col-5 jumbotron p-2 mx-1">
+                <h2 class="sensor2">Sensor :</h2>
+            </div>
+            <br>
+
+
+            <style>
+                {
+                    box-sizing: border-box;
+                }
+                /* Set additional styling options for the columns*/
+                .column {
+                float: left;
+                width: 50%;
+                }
+            
+                .row:after {
+                content: "";
+                display: table;
+                clear: both;
+                }
+                </style>
+        </div>
+
+        <div class="column">
+            <div id="data-AccX"></div>
+        </div>
+        <div class="column">
+            <div id="data-GyrX"></div>
+        </div>
+        </div>   
+
+    </div>
+
+    <style>
+
+        .jumbotron{
+            widows: 120px;
+            height: 120px;
+            justify-content: center;
+        }
+
+        .row{
+            justify-content: center;
+        }
+
+
+    </style>
+
+
+
+
+    <script>
+        var chartAccX;
+        var chartGyrX;
+
+        function requestData()
+        {   var data3 = [];
+            var data4 = [];
+            // Ajax call to get the Data from Flask
+            var requests = $.get('/data');
+
+            var tm = requests.done(function (result)
+            {
+                // AccX
+                var seriesAccX = chartAccX.series[0],
+                    shiftAccX = seriesAccX.data.length > 20;
+
+                // GyrX
+                var seriesGyrX = chartGyrX.series[0],
+                    shiftGyrX = seriesAccX.data.length > 20;
+
+                // Add the Point
+                // Time AccX Prediction
+                var data1 = [];
+                data1.push(result[0]);
+                data1.push(result[1]);
+
+
+                // Add the Point
+                // Time GyrX Prediction
+                var data2 = [];
+                data2.push(result[0]);
+                data2.push(result[2]);
+
+
+                // Add the Point
+                // Time AccX
+                data3.push(result[0]);
+                data3.push(result[3]);
+
+                // Add the Point
+                // Time GyrX
+                data4.push(result[0]);
+                data4.push(result[4]);
+
+            
+
+                
+                chartAccX.series[0].setData(data3[1], true, true, true);
+                chartGyrX.series[0].setData(data4[1], true, true, true);
+
+                $(".sensor1").text("");
+                $(".sensor1").text("Acceleration Prediction : " +  data1[1]);
+
+                $(".sensor2").text("");
+                $(".sensor2").text("Gyroscope Prediction : " +  data2[1]);
+
+                // call it again after one certain time (1000 =  1 second)
+                setTimeout(requestData, 400);
+
+            });
+        }
+
+        $(document).ready(function()
+        {
+            // --------------Chart 1 ----------------------------
+            chartAccX = new Highcharts.Chart({
+                chart:
+                    {
+                    renderTo: 'data-AccX',
+                    defaultSeriesType: 'line',
+                    events: {
+                        load: requestData
+                            }
+                    },
+                title:
+                    {
+                    text: 'AccX'
+                    },
+                xAxis: {
+                    type: 'Linear'
+                        },
+                yAxis: {
+                    minPadding: 0.2,
+                    maxPadding: 0.2,
+                    title: {
+                        text: 'Value',
+                        margin: 80
+                            }
+                         },
+                series: [{
+                    color : '#c23d23',
+                    lineColor: '#303030',
+                    name: 'AccX',
+                    data:  []
+                }]
+            });
+            
+
+            chartGyrX = new Highcharts.Chart({
+                chart:
+                    {
+                        renderTo: 'data-GyrX',
+                        defaultSeriesType: 'line',
+                        events: {
+                            load: requestData
+                        }
+                    },
+                title:
+                    {
+                        text: 'GyrX'
+                    },
+                xAxis: {
+                    type: 'Linear'
+                },
+                yAxis: {
+                    minPadding: 0.2,
+                    maxPadding: 0.2,
+                    title: {
+                        text: 'Value',
+                        margin: 80
+                    }
+                },
+                series: [{
+                    lineColor: '#1d82b8',
+                    name: 'GyrX',
+                    data: []
+                }]
+            });
+
+
+        });
+    </script>
+
+
+
+<script>
+    class Image{
+
+        constructor(imgUrl, size)
+        {
+            this.imgUrl=imgUrl;
+            this.size=size;
+        }
+
+        backgroundImage()
+        {
+            console.log("inside function ")
+            // Select the Image
+            var img = document.querySelector(".jumbotron");
+
+            // create Css Text
+            var text = "margin:auto;"+
+                "background-image: url("+this.imgUrl+");" +
+                "background-size:cover;"+
+                "opacity:1;"+
+                "background-blend-mode: darken;"+
+                "height: "+ this.size + "vh;";
+
+            img.style.cssText =  text;
+        }
+
+        centerTitle()
+        {
+            /*
+                Center the Title
+             */
+            var t1 = document.querySelector("#title");
+            t1.classList.add("text-white");
+            t1.classList.add("text-center");
+            t1.classList.add("display-3");
+        }
+    }
+    const imgUrl = ''
+    const size = "38";
+    var obj = new Image(imgUrl, size);
+    obj.backgroundImage();
+    obj.centerTitle();
+    </script>
+</body>
+
+
+</html>

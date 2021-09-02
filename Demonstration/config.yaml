@@ -1,0 +1,48 @@
+# Config File for app.py
+
+
+############################### Acceleromter #################################
+# Storage Path for Acc. Data 
+Data_acc:
+      data_file: "Acc_Data.csv"
+
+# CSV Header Acc.
+header_acc:
+      csv_header: ['AccX','AccY','AccZ','GyrX','GyrY','GyrZ','Altitude','Cmd1','Cmd2','Cmd3','Cmd4','Roll','Pitch','Yaw','ThurstRefOut1','ThurstRefOut2','ThurstRefOut3','ThurstRefOut4','Label']
+      output_column: "Label"
+      final_Columns:  ["AccX","AccY","AccZ","GyrX","GyrY","GyrZ","Cmd1","Cmd3","Roll","Pitch","Yaw","Label"]
+      final_features: ["AccX","AccY","AccZ","GyrX","GyrY","GyrZ","Cmd1","Cmd3","Roll","Pitch","Yaw"]
+      n_features: 11
+
+# Window Values Acc.
+window_acc:
+      TIME_STEPS: 64
+      # Page Refresh is also defined by parameter STEP/100
+      STEP: 40
+
+
+############################### Gyroscope #################################
+# Storage Path for Gyr. Data
+Data_gyr:
+      data_file: "Gyr_Data.csv"
+
+# CSV Header Gyr.
+header_gyr:
+      csv_header: ['AccX','AccY','AccZ','GyrX','GyrY','GyrZ','Altitude','Cmd1','Cmd2','Cmd3','Cmd4','Roll','Pitch','Yaw','ThurstRefOut1','ThurstRefOut2','ThurstRefOut3','ThurstRefOut4','Label']
+      output_column: "Label"
+      final_Columns:  ["AccX","AccY","AccZ","GyrX","GyrY","GyrZ","Label"]
+      final_features: ["AccX","AccY","AccZ","GyrX","GyrY","GyrZ"]
+      n_features: 6
+
+# Window Values Gyr.
+window_gyr:
+      TIME_STEPS: 64
+      # Page Refresh is also defined by parameter STEP/100
+      STEP: 40
+
+
+############################### Deep Learning and Machine Learning Models #################################
+# Model Paths
+model:
+      model_acc: 'Acc_CNN_LSTM_5_Class_64_28-07-2021.h5'
+      model_gyr: 'gyrModel.joblib'

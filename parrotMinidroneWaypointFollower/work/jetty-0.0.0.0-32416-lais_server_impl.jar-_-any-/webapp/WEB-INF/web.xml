@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <listener>
+        <listener-class>com.mathworks.laisserver.impl.servlet.ContextAttributeListenerImpl</listener-class>
+    </listener>
+
+	<servlet>
+        <servlet-name>jsonServlet</servlet-name>
+        <servlet-class>com.mathworks.laisserver.impl.JsonServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jsonServlet</servlet-name>
+        <url-pattern>/messageservice/json/secure</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>cometd</servlet-name>
+        <servlet-class>org.cometd.server.CometdServlet</servlet-class>
+        <init-param>
+            <param-name>timeout</param-name>
+            <param-value>30000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>maxInterval</param-name>
+            <param-value>120000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>maxLazyTimeout</param-name>
+            <param-value>100</param-value>
+        </init-param>
+        <init-param>
+            <param-name>logLevel</param-name>
+            <param-value>0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>maxSessionsPerBrowser</param-name>
+            <param-value>4</param-value>
+        </init-param>
+        <init-param>
+            <param-name>metaConnectDeliverOnly</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>long-polling.json.metaConnectDeliverOnly</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>long-polling.multiSessionInterval</param-name>
+            <param-value>200</param-value>
+        </init-param>
+        <init-param>
+            <param-name>transports</param-name>
+            <param-value>org.cometd.websocket.server.WebSocketTransport</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ws.timeout</param-name>
+            <param-value>600000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ws.interval</param-name>
+            <param-value>0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ws.maxInterval</param-name>
+            <param-value>120000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ws.bufferSize</param-name>
+            <param-value>4000000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ws.maxMessageSize</param-name>
+            <param-value>2000000</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cometd</servlet-name>
+        <url-pattern>/messageservice/async/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cometd</servlet-name>
+        <url-pattern>/messageservice/comet/*</url-pattern>
+    </servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>com.mathworks.team.wit</groupId>
+        <artifactId>mlslibs</artifactId>
+        <version>15.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mathworks</groupId>
+    <artifactId>message_service</artifactId>
+    <name>message_service</name>
+    <description>MATLAB Message Service</description>
+    <packaging>jar</packaging>
+    <inceptionYear>2011</inceptionYear>
+
+    <scm>
+        <connection>
+            scm:perforce:perforce:1666://team/wit/libs/mlslibs/main/message_service/...
+        </connection>
+        <developerConnection>
+            scm:perforce:perforce:1666://team/wit/libs/mlslibs/main/message_service/...
+        </developerConnection>
+        <url>
+            http://p4db/cgi-bin/depotTreeBrowser.cgi?FSPC=//team/wit/libs/mlslibs/main/message_service&amp;HIDEDEL=NO
+        </url>
+    </scm>
+
+    <build>
+        <plugins>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.objectplanet.image</groupId>
+            <artifactId>pngencoder</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.3</version>
+        </dependency>
+
+        <!-- for testing -->
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>${easymock.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- matlabserver dependencies -->
+        <dependency>
+            <groupId>com.mathworks.matlabserver</groupId>
+            <artifactId>internalservices</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mathworks.matlabserver</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+           <groupId>com.mathworks.matlabserver</groupId>
+           <artifactId>worker_config_management</artifactId>
+           <version>${project.version}</version>
+       </dependency>
+        <dependency>
+            <groupId>com.mathworks</groupId>
+            <artifactId>message_service_interface</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.mathworks.matlabserver</groupId>
+          <artifactId>msscommon</artifactId>
+          <version>${msscommon.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <distributionManagement>
+        <site>
+            <id>doc_website</id>
+            <name>WIT Maven Project Docs</name>
+            <url>scp://mavenrepo/rel/www/WIT/html/team/wit/libs/mlslibs/main/message_service
+            </url>
+        </site>
+    </distributionManagement>
+
+</project>

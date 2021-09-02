@@ -1,0 +1,239 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.mathworks.team.wit</groupId>
+        <artifactId>mlslibs</artifactId>
+        <version>15.1</version>
+    </parent>
+	
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mathworks</groupId>
+    <artifactId>lais_server_impl</artifactId>
+    <version>1.2.0</version>
+	 
+    <properties>
+		<setmwe.prod>Bmain</setmwe.prod>
+    </properties>
+
+	<build>
+    	<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>dir-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>${basedir}/src/assemble/assembly-jar.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>replace_artifact</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+							<tasks>
+								<copy file="${build.directory}/${pom.artifactId}-${pom.version}-jar.jar" tofile="${build.directory}/${pom.artifactId}-${pom.version}.jar"/>
+							</tasks>
+						</configuration>
+					</execution>			
+				</executions>
+			</plugin>
+			<!--To make sure build will compile in BaT-->
+			<!--
+            <plugin>
+                <groupId>com.mathworks.batup.maven_harness</groupId>
+                <artifactId>mavenharness-compatibility-plugin</artifactId>
+                <version>0.6</version>
+                <executions>
+                    <execution>
+                        <id>dre-qualify</id>
+                        <goals>
+                            <goal>dre-qualify</goal>
+                            <goal>dre-verify</goal>
+                        </goals>
+
+                        <configuration>
+                            <bridgeComponent>lais_server_impl</bridgeComponent>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+			-->
+		</plugins>
+	</build>
+	 
+    <dependencies>
+		<!-- //TODO: Cleanup dependencies -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>8.1.9.v20130131</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <version>8.1.9.v20130131</version>
+        </dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-webapp</artifactId>
+			<version>8.1.9.v20130131</version>
+		</dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlets</artifactId>
+            <version>8.1.9.v20130131</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.orbit</groupId>
+            <artifactId>javax.servlet</artifactId>
+            <version>3.0.0.v201112011016</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.3</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-java-client</artifactId>
+            <version>2.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-websocket-jetty</artifactId>
+            <version>2.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.cometd.java</groupId>
+            <artifactId>cometd-java-server</artifactId>
+            <version>2.5.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.14</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.7</version>
+            <scope>test</scope>
+        </dependency>
+		
+        <dependency>
+            <groupId>com.mathworks</groupId>
+            <artifactId>lais_server_java_api</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mathworks.matlabserver</groupId>
+            <artifactId>connector_interface</artifactId>
+            <version>20.1-SNAPSHOT</version> <!-- Use snapshot to resolve out of date setmwe. In BaT, use connector_api_java. -->
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+            <groupId>com.mathworks</groupId>
+            <artifactId>cosg_impl</artifactId>
+            <version>[2.0.0, 3.0.0)</version>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+            <groupId>com.mathworks</groupId>
+            <artifactId>cosg_java_api</artifactId>
+            <version>[2.0.0, 3.0.0)</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mathworks</groupId>
+            <artifactId>message_service_interface</artifactId>
+            <version>${parent.version}</version>
+			<scope>provided</scope>
+			<optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.mathworks</groupId>
+            <artifactId>message_service</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.mathworks.matlab</groupId>
+            <artifactId>jmi</artifactId>
+            <version>${setmwe.prod}-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mathworks.matlab</groupId>
+            <artifactId>mvm</artifactId>
+            <version>${setmwe.prod}-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mathworks.matlab</groupId>
+            <artifactId>util</artifactId>
+            <version>${setmwe.prod}-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mathworks.matlab</groupId>
+            <artifactId>services</artifactId>
+            <version>${setmwe.prod}-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+	
+    <distributionManagement>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>mw_inhouse</id>
+            <name>Mathworks Internal Repository</name>
+            <url>http://mw-maven-repository-manager/artifactory/inhouse</url>
+            <layout>default</layout>
+        </repository>
+
+        <snapshotRepository>
+            <uniqueVersion>true</uniqueVersion>
+            <id>mw_inhouse_snapshot</id>
+            <name>Mathworks Internal Snapshot Repository</name>
+            <url>http://mw-maven-repository-manager/artifactory/inhouse_snapshot</url>
+            <layout>default</layout>
+        </snapshotRepository>
+
+        <site>
+            <id>doc_website</id>
+            <name>LAIS Server Impl Project Docs</name>
+            <url>scp://mavenrepo/rel/www/WIT/html/team/wit/libs/lais_server_impl/main
+            </url>
+        </site>
+    </distributionManagement>	
+</project>

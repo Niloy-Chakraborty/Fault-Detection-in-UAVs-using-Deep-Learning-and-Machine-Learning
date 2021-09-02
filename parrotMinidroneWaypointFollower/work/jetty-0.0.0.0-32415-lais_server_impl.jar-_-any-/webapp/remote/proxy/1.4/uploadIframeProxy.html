@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input id="uploadFileInput" name="uploadFileName" type="file" multiple onchange="onFileInputChange()"/>
+    </form>
+
+    <script>
+        "use strict";
+
+        var xhr;
+        var iframeParent = window.parent;
+        var uploadDestinationUrl;
+
+        // This function is to be removed per g1274132.
+        function onFileInputChange() {
+            var MAX_FILE_SIZE_IN_BYTES = 1024 * 1024 * 16;
+            var fileInput = document.getElementById("uploadFileInput");
+            var fileList = fileInput.files;
+            var numFiles = fileList.length;
+            var isFileSizeError = false;
+            for (var i = 0; i < numFiles; i++) {
+                var fileSize = fileList[i].size;
+                if (fileSize === 0 || fileSize > MAX_FILE_SIZE_IN_BYTES) {
+                    isFileSizeError = true;
+                    break;
+                }
+            }
+            postMessageToParent({type: "fileInputChanged", numFiles: numFiles, isFileSizeError: isFileSizeError});
+        }
+
+        // This function is to be removed per g1274132.
+        function submitForm(formElement) {
+            var formData = new FormData(formElement);
+            createAndSendXhr(formData);
+        }
+
+        function getUploadDestinationUrlFromQueryParameter() {
+            var query = window.location.search.substring(1);
+            var params = query.split('&');
+            for (var i = 0; i < params.length; i++) {
+                var pair = params[i].split('=');
+                if (pair[0] == "uploadDestinationUrl") {
+                    return pair[1];
+                }
+            }
+        }
+
+        uploadDestinationUrl = getUploadDestinationUrlFromQueryParameter();
+
+        function postMessageToParent(message) {
+            iframeParent.postMessage(message, "*");
+        }
+
+        function createFormDataFromFileList(fileList) {
+            var formData = new FormData();
+            var FORM_DATA_FIELD_NAME = "uploadFileName"; // The server requires this particular name.
+            for (var i = 0; i < fileList.length; i++) {
+                var file = fileList[i];
+                formData.append(FORM_DATA_FIELD_NAME, file, file.name);
+            }
+            return formData;
+        }
+
+        function createAndSendXhr(formData) {
+            xhr = new XMLHttpRequest();
+            xhr.upload.onprogress = function (event) {
+                postMessageToParent({type: "updateProgressBar", loaded: event.loaded, total: event.total});
+            };
+            xhr.onload = function () {
+                postMessageToParent({type: "uploadFinished", status: xhr.status, response: xhr.response});
+            };
+            xhr.open("POST", uploadDestinationUrl, true);
+            xhr.send(formData);
+        }
+
+        window.addEventListener("message", function (event) {
+            if (event.source !== iframeParent) {
+                return;
+            }
+            if (event.data instanceof FileList) {
+                var formData = createFormDataFromFileList(event.data);
+                createAndSendXhr(formData);
+                return;
+            }
+            if (event.data === "cancelUpload") {
+                if (xhr) {
+                    xhr.abort();
+                }
+                postMessageToParent({type: "uploadCanceled"});
+            }
+
+            // This switch block is to be removed per g1274132.
+            switch (event.data.type) {
+                case "uploadFiles":
+                    var uploadForm = document.getElementById("uploadForm");
+                    submitForm(uploadForm);
+                    break;
+                case "cancelUpload":
+                    if (xhr) {
+                        xhr.abort();
+                    }
+                    postMessageToParent({type: "uploadCanceled"});
+                    break;
+                default:
+                    // Do nothing.
+            }
+        });
+
+        postMessageToParent({type: "iframeIsReady"});
+
+    </script>
+</body>
+</html>

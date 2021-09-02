@@ -42,3 +42,6 @@
 
 #### Sample of Collected Data
 ![alt text](https://github.com/Niloy-Chakraborty/FDD-in-UAV-using-Deep-Learning/blob/master/ML_DL/misc_images/DATA.png)
+
+#### Contact
+In case of any error/confusion, feel free to contact me by email at chakrabortyniloy2018@gmail.com 

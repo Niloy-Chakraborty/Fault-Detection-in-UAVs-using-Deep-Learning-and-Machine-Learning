@@ -6,7 +6,7 @@ We propose a Fault Detection and Classification techniques using a Deep Learning
 Unmanned Aerial Vehicles (UAVs) are playing inescapable roles in many facetsof engineering, and their proliferation is pushing many organizations, governments,defense institutes, etc to use UAVs for purposes such as surveillance, reconnaissance,warfare, etc.  The precedence that humans can be replaced by drones in potentiallydangerous  circumstances  is  the  main  reason  behind  investing  in  and  researchingUAVs.  The increasing demand in the usage of UAVs shows the necessity to addressthe crisis situation that might happen with UAVs.
 
 ### Workflow
-<kbd><img src="https://github.com/Niloy-Chakraborty/Fault-Detection-in-UAVs-using-Deep-Learning-and-Machine-Learning/blob/main/ML_DL/misc_images/WorkFlow.png" width="700" height="350"></kbd>
+<kbd><img src="https://github.com/Niloy-Chakraborty/Fault-Detection-in-UAVs-using-Deep-Learning-and-Machine-Learning/blob/main/ML_DL/misc_images/WorkFlow.png" width="850" height="450"></kbd>
 
 The whole research has been divided into Two Parts, and the final demonstration:
 #### 1. Part A: [Data Collection](https://github.com/Niloy-Chakraborty/Fault-Detection-in-UAVs-using-Deep-Learning-and-Machine-Learning/tree/main/parrotMinidroneWaypointFollower)

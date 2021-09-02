@@ -35,7 +35,7 @@
 9. Total num_wp*len_sim_each_wp simulations will be performed for each fault categories.
 10. MAT files will be stored in **FaultyDataAcc_MATFILES** folder, and the txt files will be stored in **FaultyDataAcc** directory.
 
-<kbd><img src="https://github.com/Niloy-Chakraborty/Fault-Detection-in-UAVs-using-Deep-Learning-and-Machine-Learning/blob/main/ML_DL/misc_images/fi_block.png" width="600" height="600"></kbd>
+<kbd><img src="https://github.com/Niloy-Chakraborty/Fault-Detection-in-UAVs-using-Deep-Learning-and-Machine-Learning/blob/main/ML_DL/misc_images/fi_block.png" width="600" height="500"></kbd>
 
 
 `A MAT file to TXT file converter "dataConvert.m" is also uploaded`

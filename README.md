@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 # FDD-in-UAV-using-Deep-Learning
 =======
 ## Fault Detection in UAVs using Deep Learning and Machine Learning
->>>>>>> d76ef8ccf17bd0855150ef6ca2cbf5714d9095c4
+
 We propose a Fault Detection and Classification techniques using a Deep Learning and Machine Learning based architectures to detect the UAV maloperation in Accelerometer and Gyroscope sensor.
 
 ### Abstract:

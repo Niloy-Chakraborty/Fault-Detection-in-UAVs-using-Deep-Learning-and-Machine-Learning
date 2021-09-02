@@ -14,3 +14,7 @@ The whole research has been divided into Three Parts (including the final demons
 #### 3. Part C: [Demonstration](https://github.com/Niloy-Chakraborty/Fault-Detection-in-UAVs-using-Deep-Learning-and-Machine-Learning/tree/main/Demonstration)
 
 Details and Manual to run the codes are mentioned in the README.md files inside each of the directories. 
+
+
+#### Contact
+In case of any error/confusion, feel free to contact me by email at chakrabortyniloy2018@gmail.com 
